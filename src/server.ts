@@ -10,15 +10,15 @@ import { agentResolvers } from "./graphql-schema/agentResolvers.js";
 import { serverErrorHandler } from "./utils/ErrorHandling/typesErrors/serverErrorHandler.js";
 import { userResolvers } from "./graphql-schema/userResolvers.js";
 import { getUserEmail } from "./utils/getUserEmail.js";
-import {
-  requireGoogleAuth,
-  configureCookieParser,
-} from "./utils/google-auth-middleware.js";
+import { requireGoogleAuth, configureCookieParser } from "./utils/google-auth-middleware.js";
 
 const app = express();
 const port = 4000;
+
 configureCookieParser(app); // Configurar middleware de cookies
+
 mongoConnect();
+
 // Ruta de autenticación de Google
 app.get("/auth/google", (req, res) => {
   console.log("hola /auth/google");
@@ -56,6 +56,7 @@ app.get("/auth/google/redirect", async (req, res) => {
 app.get("/", requireGoogleAuth, (req, res) => {
   res.send("Welcome to Tourism Agency API");
 });
+
 app.get("/api-docs", /*requireGoogleAuth,*/ (req, res) => {
   res.redirect(
     process.env.NODE_ENV === "development"
@@ -63,6 +64,7 @@ app.get("/api-docs", /*requireGoogleAuth,*/ (req, res) => {
       : `https://tourismagency2023.onrender.com/graphql`
   );
 });
+
 app.get("/graphql", /*requireGoogleAuth,*/ (req, res) => {
   res.redirect(
     process.env.NODE_ENV == "development"
