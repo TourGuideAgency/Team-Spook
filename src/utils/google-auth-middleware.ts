@@ -1,4 +1,4 @@
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 
 // Middleware to verify Google authentication
 // Middleware para verificar la autenticación de Google

@@ -56,14 +56,14 @@ app.get("/auth/google/redirect", async (req, res) => {
 app.get("/", requireGoogleAuth, (req, res) => {
   res.send("Welcome to Tourism Agency API");
 });
-app.get("/api-docs", requireGoogleAuth, (req, res) => {
+app.get("/api-docs", /*requireGoogleAuth,*/ (req, res) => {
   res.redirect(
     process.env.NODE_ENV === "development"
       ? `http://localhost:${port}/graphql`
       : `https://tourismagency2023.onrender.com/graphql`
   );
 });
-app.get("/graphql", requireGoogleAuth, (req, res) => {
+app.get("/graphql", /*requireGoogleAuth,*/ (req, res) => {
   res.redirect(
     process.env.NODE_ENV == "development"
       ? `http://localhost:${port}/graphql`
