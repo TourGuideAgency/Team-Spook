@@ -20,6 +20,7 @@ configureCookieParser(app); // Configurar middleware de cookies
 mongoConnect();
 
 // Ruta de autenticación de Google
+// Google OAuth Route
 app.get("/auth/google", (req, res) => {
   console.log("hola /auth/google");
   const authUrl = getGoogleAuthUrl();
@@ -57,7 +58,7 @@ app.get("/", requireGoogleAuth, (req, res) => {
   res.send("Welcome to Tourism Agency API");
 });
 
-app.get("/api-docs", /*requireGoogleAuth,*/ (req, res) => {
+app.get("/api-docs", requireGoogleAuth, (req, res) => {
   res.redirect(
     process.env.NODE_ENV === "development"
       ? `http://localhost:${port}/graphql`
@@ -65,7 +66,7 @@ app.get("/api-docs", /*requireGoogleAuth,*/ (req, res) => {
   );
 });
 
-app.get("/graphql", /*requireGoogleAuth,*/ (req, res) => {
+app.get("/graphql", requireGoogleAuth, (req, res) => {
   res.redirect(
     process.env.NODE_ENV == "development"
       ? `http://localhost:${port}/graphql`
