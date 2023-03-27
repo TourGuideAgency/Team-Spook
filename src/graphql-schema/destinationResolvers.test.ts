@@ -97,6 +97,7 @@ test("Updates destination in db", async () => {
     const newDestination = await destination.save();
     
     const args = {
+      id: newDestination._id,
       country: 'USA',
       city: 'New-York',
       currency: 'USD',

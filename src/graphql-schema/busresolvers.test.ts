@@ -83,6 +83,7 @@ test("Updates bus in db", async () => {
     const newBus = await bus.save();
 
     const args = {
+      id: newBus._id,
       Name: "Red-Line",
       Description: 'Times-Square-Excursion',
       Tour_Guide: 'Patrick',
