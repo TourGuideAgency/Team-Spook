@@ -9,8 +9,10 @@ const SCOPES = ['https://www.googleapis.com/auth/userinfo.profile'];
 
 // Configuración de OAuth 2.0
 const oAuth2Client = new google.auth.OAuth2(
-    "845985253462-ecb83lc3k4ra7drgu9giikud0gp1tcpa.apps.googleusercontent.com",
-    "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",
+    // "845985253462-ecb83lc3k4ra7drgu9giikud0gp1tcpa.apps.googleusercontent.com",
+    // "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",
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
     REDIRECT_URI
 );
 
