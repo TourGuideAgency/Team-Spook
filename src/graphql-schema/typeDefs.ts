@@ -46,7 +46,6 @@ export const typeDefs = gql`
     email: String
     phone: String
     languages: String
-    bio: String
     databaseAccessLevel: Int
   }
 
@@ -87,6 +86,7 @@ export const typeDefs = gql`
     getAllBuses: [Bus]
     getBusesbyId(id: ID!): Bus
     getUserbyEmail(email: String!): User
+    getUserAuthByGoogleIdToken(googleIdToken: String!): User
   }
 
   type Mutation {
@@ -144,7 +144,6 @@ export const typeDefs = gql`
       email: String!
       phone: String!
       languages: String!
-      bio: String!
       databaseAccessLevel: Int!
     ): Guide!
     updateGuide(
@@ -154,7 +153,6 @@ export const typeDefs = gql`
       email: String
       phone: String
       languages: String
-      bio: String
       databaseAccessLevel: Int
     ): Guide!
     deleteGuide(id: ID!): String!

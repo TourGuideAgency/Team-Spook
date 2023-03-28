@@ -13,22 +13,23 @@ beforeAll(async () => {
     await mongoose.connection.close();
   });
   
-test ("Gets all destinations", () => {
+test ("Gets all destinations", async () => {
     expect(destinationResolvers.Query.getAlldestinations).not.toThrowError();
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Gets destination by ID number", async () => {
     const destination = new Destination({ 
-        country: 'USA',
-        city: 'New York',
-        currency: 'dollars',
-        language: 'English',
-        description: 'Big metropolitan city',
-        meals: "American",
-        lodging: "hotels",
-        price: 5000,
-        Bus_id: 2,
-        image: "NewYork.jpeg"
+      country: 'USA',
+      city: 'New-York',
+      currency: 'USD',
+      language: 'English',
+      description: 'Big-Apple',
+      meals: "American",
+      lodging: "Marriott",
+      price: 5000,
+      Bus_id: 2,
+      image: "NewYork.jpeg"
       });
     const newDestination = await destination.save();
 ;
@@ -46,20 +47,21 @@ test("Gets destination by ID number", async () => {
     expect(foundDestination.image).toEqual(newDestination.image);
 
     await Destination.deleteOne({ _id: foundDestination._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Adds destination to db", async () => {
     const destination = {
-        country: 'USA',
-        city: 'New York',
-        currency: 'dollars',
-        language: 'English',
-        description: 'Big metropolitan city',
-        meals: "American",
-        lodging: "hotels",
-        price: 5000,
-        Bus_id: 2,
-        image: "NewYork.jpeg"
+      country: 'USA',
+      city: 'New-York',
+      currency: 'USD',
+      language: 'English',
+      description: 'Big-Apple',
+      meals: "American",
+      lodging: "Marriott",
+      price: 5000,
+      Bus_id: 2,
+      image: "NewYork.jpeg"
     };
 
     const newDestination = await destinationResolvers.Mutation.createDestination(null, destination);
@@ -76,35 +78,36 @@ test("Adds destination to db", async () => {
     expect(newDestination.image).toEqual(destination.image);
 
     await Destination.deleteOne({ _id: newDestination._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
   });
 
 test("Updates destination in db", async () => {
     const destination = new Destination({ 
-        country: 'USA',
-        city: 'New York',
-        currency: 'dollars',
-        language: 'English',
-        description: 'Big metropolitan city',
-        meals: "American",
-        lodging: "hotels",
-        price: 5000,
-        Bus_id: 2,
-        image: "NewYork.jpeg"
+      country: 'USA',
+      city: 'New-York',
+      currency: 'USD',
+      language: 'English',
+      description: 'Big-Apple',
+      meals: "American",
+      lodging: "Marriott",
+      price: 5000,
+      Bus_id: 2,
+      image: "NewYork.jpeg"
       });
     const newDestination = await destination.save();
     
     const args = {
-        id: newDestination._id,
-        country: 'USA',
-        city: 'New York',
-        currency: 'dollars',
-        language: 'English',
-        description: 'Big metropolitan city',
-        meals: "American",
-        lodging: "Air-BnB",
-        price: 5000,
-        Bus_id: 2,
-        image: "NewYork.jpeg"
+      id: newDestination._id,
+      country: 'USA',
+      city: 'New-York',
+      currency: 'USD',
+      language: 'English',
+      description: 'Big-Apple',
+      meals: "American",
+      lodging: "Airbnb",
+      price: 5000,
+      Bus_id: 2,
+      image: "NewYork.jpeg"
     };
 
     const updatedDestination = await destinationResolvers.Mutation.updateDestination(null, args);
@@ -121,21 +124,21 @@ test("Updates destination in db", async () => {
     expect(updatedDestination.image).toEqual(args.image);
 
     await Destination.deleteOne({ _id: updatedDestination._id });
-
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Deletes destination from db", async () => {    
     const destination = new Destination({ 
-        country: 'USA',
-        city: 'New York',
-        currency: 'dollars',
-        language: 'English',
-        description: 'Big metropolitan city',
-        meals: "American",
-        lodging: "hotels",
-        price: 5000,
-        Bus_id: 2,
-        image: "NewYork.jpeg"
+      country: 'USA',
+      city: 'New-York',
+      currency: 'USD',
+      language: 'English',
+      description: 'Big-Apple',
+      meals: "American",
+      lodging: "Marriott",
+      price: 5000,
+      Bus_id: 2,
+      image: "NewYork.jpeg"
       });
     const newDestination = await destination.save();
 
@@ -155,4 +158,5 @@ test("Deletes destination from db", async () => {
     const deletedDestination = await destinationResolvers.Mutation.deleteDestination(null, { id: foundDestination.id })
 
     expect(deletedDestination).toBe(deletedDestination);
+    await new Promise(resolve => setTimeout(resolve, 1000));
     });

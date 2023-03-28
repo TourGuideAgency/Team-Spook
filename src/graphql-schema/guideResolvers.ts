@@ -26,15 +26,15 @@ export const guideResolvers = {
     Mutation: {
         createGuide: async (_, args) => {
             const sanitizedArgs = sanitize(args);
-            const { firstName, lastName, email, phone, languages, bio, databaseAccessLevel } = sanitizedArgs;
-            const newCostumer = new Guide({ firstName, lastName, email, phone, languages, bio, databaseAccessLevel });
+            const { firstName, lastName, email, phone, languages, databaseAccessLevel } = sanitizedArgs;
+            const newCostumer = new Guide({ firstName, lastName, email, phone, languages, databaseAccessLevel });
             await newCostumer.save();
             return newCostumer;
         },
         updateGuide: async (_, args) => {
             const sanitizedArgs = sanitize(args);
-            const { id, firstName, lastName, email, phone, languages, bio, databaseAccessLevel } = sanitizedArgs;
-            return await Guide.findByIdAndUpdate(id, { $set: { firstName, lastName, email, phone, languages, bio, databaseAccessLevel } }, { new: true });
+            const { id, firstName, lastName, email, phone, languages, databaseAccessLevel } = sanitizedArgs;
+            return await Guide.findByIdAndUpdate(id, { $set: { firstName, lastName, email, phone, languages, databaseAccessLevel } }, { new: true });
         },
         deleteGuide: async (_, args) => {
             try {

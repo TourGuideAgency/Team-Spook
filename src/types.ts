@@ -23,7 +23,6 @@ export type GuidesInput = {
     email: string,
     phone: string,
     languages: string,
-    bio: string,
     databaseAccessLevel: number
 }
 

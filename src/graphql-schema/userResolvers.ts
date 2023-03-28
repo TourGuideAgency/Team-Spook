@@ -49,5 +49,8 @@ export const userResolvers = {
         ErrorHandling(error);
       }
     },
-  },
+      getUserAuthByGoogleIdToken: async (_, { googleTokenId }) => {
+        return await UserGoogleAuth.findOne({ googleTokenId });
+      },
+    }
 };

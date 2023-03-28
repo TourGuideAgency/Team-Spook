@@ -13,15 +13,16 @@ beforeAll(async () => {
     await mongoose.connection.close();
   });
   
-test ("Gets all customers", () => {
+test ("Gets all customers", async () => {
     expect(customerResolvers.Query.getAllcustomers).not.toThrowError();
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Gets customer by ID number", async () => {
     const customer = new Customer({ 
-        firstName: "John",
-        lastName: 'Doe',
-        email: 'JohnDoe@email.com',
+        firstName: "Marco",
+        lastName: 'Polo',
+        email: 'tourismagency2023.customer.polo@gmail.com',
         phone: "123-456-7890",
         emergency_phone: "123-456-7890",
         passport: "1234567890",
@@ -40,17 +41,18 @@ test("Gets customer by ID number", async () => {
     expect(foundCustomer.seat).toEqual(newCustomer.seat);
 
     await Customer.deleteOne({ _id: foundCustomer._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Adds customer to db", async () => {
     const customer = { 
-        firstName: "John",
-        lastName: 'Doe',
-        email: 'JohnDoe@email.com',
-        phone: "123-456-7890",
-        emergency_phone: "123-456-7890",
-        passport: "1234567890",
-        seat: 1
+      firstName: "Marco",
+      lastName: 'Polo',
+      email: 'tourismagency2023.customer.polo@gmail.com',
+      phone: "123-456-7890",
+      emergency_phone: "123-456-7890",
+      passport: "1234567890",
+      seat: 1
       };
 
     const newCustomer = await customerResolvers.Mutation.createCustomer(null, customer);
@@ -64,28 +66,29 @@ test("Adds customer to db", async () => {
     expect(newCustomer.seat.toString()).toEqual(customer.seat);
 
     await Customer.deleteOne({ _id: newCustomer._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
   });
 
 test("Updates customer in db", async () => {
     const customer = new Customer({ 
-        firstName: "John",
-        lastName: 'Doe',
-        email: 'JohnDoe@email.com',
-        phone: "123-456-7890",
-        emergency_phone: "123-456-7890",
-        passport: "1234567890",
-        seat: 1
+      firstName: "Marco",
+      lastName: 'Polo',
+      email: 'tourismagency2023.customer.polo@gmail.com',
+      phone: "123-456-7890",
+      emergency_phone: "123-456-7890",
+      passport: "1234567890",
+      seat: 1
       });
     const newCustomer = await customer.save();
 
     const args = {
         id: newCustomer._id,
-        firstName: "John",
-        lastName: 'Doe',
-        email: 'JohnDoe@email.com',
+        firstName: "Marco",
+        lastName: 'Polo',
+        email: 'tourismagency2023.customer.polo@gmail.com',
         phone: "123-456-7890",
-        emergency_phone: "123-456-7890",
-        passport: "0987654321",
+        emergency_phone: "123-456-7899",
+        passport: "1234567890",
         seat: 1
       };
 
@@ -98,17 +101,20 @@ test("Updates customer in db", async () => {
     expect(updatedCustomer.emergency_phone).toEqual(args.emergency_phone);
     expect(updatedCustomer.passport).toEqual(args.passport);
     expect(updatedCustomer.seat.toString()).toEqual(args.seat);
+    
+    await customer.deleteOne({ _id: updatedCustomer._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Deletes customer from db", async () => {    
     const customer = new Customer({ 
-        firstName: "John",
-        lastName: 'Doe',
-        email: 'JohnDoe@email.com',
-        phone: "123-456-7890",
-        emergency_phone: "123-456-7890",
-        passport: "1234567890",
-        seat: 1
+      firstName: "Marco",
+      lastName: 'Polo',
+      email: 'tourismagency2023.customer.polo@gmail.com',
+      phone: "123-456-7890",
+      emergency_phone: "123-456-7890",
+      passport: "1234567890",
+      seat: 1
       });
     const newCustomer = await customer.save();
 
@@ -125,4 +131,5 @@ test("Deletes customer from db", async () => {
     const deletedCustomer = await customerResolvers.Mutation.deleteCustomer(null, { id: foundCustomer.id })
 
     expect(deletedCustomer).toBe(deletedCustomer);
-    });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  });

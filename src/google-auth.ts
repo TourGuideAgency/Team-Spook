@@ -7,8 +7,13 @@ import { ParsedQs } from 'qs';
 // Lee los datos de las credenciales de Google desde el archivo JSON
 const credentialsPath = path.join(process.cwd(),process.env.NODE_ENV === "development" ? 'credentials.json':"./credentials.json" );
 const credentials = JSON.parse(readFileSync(credentialsPath, 'utf8'));
+<<<<<<< HEAD
 const REDIRECT_URI_DEV ='http://localhost:4000/auth/google/redirect';
 const REDIRECT_URI ='https://tourismagency2023.onrender.com/auth/google/redirect';
+=======
+const REDIRECT_URI ='http://localhost:4000/auth/google/redirect';
+//const REDIRECT_URI ='https://tourismagency2023.onrender.com/auth/google/redirect';
+>>>>>>> bd40ef7e9f821846707d6853b782e802d247c496
 const SCOPES = ['https://www.googleapis.com/auth/userinfo.profile'];
 
 // OAuth 2.0 Configuration

@@ -13,19 +13,20 @@ beforeAll(async () => {
     await mongoose.connection.close();
   });
   
-test ("Gets all buses", () => {
+test ("Gets all buses", async () => {
     expect(busResolvers.Query.getAllBuses).not.toThrowError();
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Gets bus by ID number", async () => {
     const bus = new Bus({ 
-        Name: "bus",
-        Description: 'yellow bus',
+        Name: "Red-Line",
+        Description: 'Times-Square-Excursion',
         Tour_Guide: 'John',
         Total_Seat: 10,
         Empty_Seat: 2,
         Full_Seat: 8,
-        Patent: "What is this?"
+        Patent: "NY-CWGM438"
       });
     const newBus = await bus.save();
 ;
@@ -40,17 +41,18 @@ test("Gets bus by ID number", async () => {
     expect(foundBus.Patent).toEqual(newBus.Patent);
 
     await Bus.deleteOne({ _id: foundBus._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Adds bus to db", async () => {
 const bus = {
-    Name: "bus",
-    Description: 'yellow bus',
-    Tour_Guide: 'John',
-    Total_Seat: 10,
-    Empty_Seat: 2,
-    Full_Seat: 8,
-    Patent: "What is this?"
+  Name: "Red-Line",
+  Description: 'Times-Square-Excursion',
+  Tour_Guide: 'John',
+  Total_Seat: 10,
+  Empty_Seat: 2,
+  Full_Seat: 8,
+  Patent: "NY-CWGM438"
 };
 
     const newBus = await busResolvers.Mutation.createBus(null, bus);
@@ -64,31 +66,32 @@ const bus = {
     expect(newBus.Patent).toEqual(bus.Patent);
 
     await Bus.deleteOne({ _id: newBus._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
   });
 
 test("Updates bus in db", async () => {
     const bus = new Bus({ 
-        Name: "bus",
-        Description: 'yellow bus',
+        Name: "Red-Line",
+        Description: 'Times-Square-Excursion',
         Tour_Guide: 'John',
         Total_Seat: 10,
         Empty_Seat: 2,
         Full_Seat: 8,
-        Patent: "What is this?"
+        Patent: "NY-CWGM438"
       });
 
     const newBus = await bus.save();
 
     const args = {
-        id: newBus._id,
-        Name: "bus",
-        Description: 'yellow bus',
-        Tour_Guide: 'Patrick',
-        Total_Seat: 10,
-        Empty_Seat: 2,
-        Full_Seat: 8,
-        Patent: "What is this?"
-      };
+      id: newBus._id,
+      Name: "Red-Line",
+      Description: 'Times-Square-Excursion',
+      Tour_Guide: 'Patrick',
+      Total_Seat: 10,
+      Empty_Seat: 2,
+      Full_Seat: 8,
+      Patent: "NY-CWGM438"
+    };
 
     const updatedBus = await busResolvers.Mutation.updateBus(null, args);
 
@@ -101,17 +104,18 @@ test("Updates bus in db", async () => {
     expect(updatedBus.Patent).toEqual(args.Patent);
 
     await Bus.deleteOne({ _id: updatedBus._id });
+    await new Promise(resolve => setTimeout(resolve, 1000));
 });
 
 test("Deletes bus from db", async () => {    
         const bus = new Bus({ 
-            Name: "bus",
-            Description: 'yellow bus',
-            Tour_Guide: 'John',
-            Total_Seat: 10,
-            Empty_Seat: 2,
-            Full_Seat: 8,
-            Patent: "What is this?"
+          Name: "Red-Line",
+          Description: 'Times-Square-Excursion',
+          Tour_Guide: 'John',
+          Total_Seat: 10,
+          Empty_Seat: 2,
+          Full_Seat: 8,
+          Patent: "NY-CWGM438"
         });
         const newBus = await bus.save();
 
@@ -128,4 +132,5 @@ test("Deletes bus from db", async () => {
         const deletedBus = await busResolvers.Mutation.deleteBus(null, { id: foundBus.id })
 
         expect(deletedBus).toBe(deletedBus);
+        await new Promise(resolve => setTimeout(resolve, 1000));
     });
