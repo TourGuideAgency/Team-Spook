@@ -13,7 +13,7 @@ This Tour Guide Agency API was created using the following technologies:
 Our Tourism Agency API contains the following collections:
 * agents
 * buses
-* dustomers
+* customers
 * destinations
 * guides
 * usergoogleauths
